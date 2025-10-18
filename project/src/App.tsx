@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Legion from './pages/Legion';
+import Legion from './pages/legion';
 import DemandZoneAnalyzer from './pages/demand-zone-analyzer/DemandZoneAnalyzer';
 
 function App() {
