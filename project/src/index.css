@@ -1,0 +1,151 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Aboreto:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Reset & Foundation */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+html, body, #root {
+  background: #261E1E;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: #e6d7c3;
+  font-family: 'Aboreto', serif;
+}
+
+/* Hide scrollbars globally */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Typography */
+.display-font {
+  font-family: 'Italiana', serif;
+}
+
+.body-font {
+  font-family: 'Aboreto', serif;
+}
+
+/* Focus & Accessibility */
+*:focus-visible {
+  outline: 2px solid #CEAD41;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(206, 173, 65, 0.3);
+  color: #CEAD41;
+}
+
+/* Layout Utilities */
+.unified-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Motion Utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .unified-layout {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .unified-layout,
+  .section-container,
+  .content-wrapper {
+    padding: 0 20px;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent text selection on UI elements */
+button, nav, header {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

@@ -1,0 +1,293 @@
+/* Home Page Styles */
+
+/* Navigation Animations */
+.sticky-nav {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-load-in {
+  animation: navSlideDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.nav-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+@keyframes navSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-left, .nav-right, .nav-center {
+  opacity: 0;
+  animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.nav-left-load-in {
+  animation-delay: 0.3s;
+}
+
+.nav-right-load-in {
+  animation-delay: 0.5s;
+}
+
+.nav-center-load-in {
+  animation-delay: 0.4s;
+}
+
+.nav-button {
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  color: #CEAD41 !important;
+  background: rgba(206, 173, 65, 0.1);
+}
+
+/* Logo Animation */
+.logo-shine {
+  background: linear-gradient(90deg, #CEAD41 0%, #f5e6d3 50%, #CEAD41 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.logo-load-in {
+  animation: logoFadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+}
+
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hero Section Animations */
+.hero-load-in {
+  animation: heroFadeUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title-shine {
+  background: linear-gradient(90deg, #CEAD41 0%, #f5e6d3 40%, #CEAD41 60%, #f5e6d3 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 4s linear infinite;
+}
+
+.title-load-in {
+  animation: titleFadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  opacity: 0;
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tagline-shine {
+  background: linear-gradient(90deg, #e6d7c3 0%, #f8f8fa 40%, #e6d7c3 60%, #f8f8fa 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 5s linear infinite;
+}
+
+.tagline-load-in {
+  animation: fadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+  opacity: 0;
+}
+
+.feature-tagline-shine {
+  background: linear-gradient(90deg, #e6d7c3 0%, #f8f8fa 40%, #bcbcbc 60%, #f8f8fa 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 5s linear infinite;
+}
+
+/* Button Animation */
+.liquid-scroll {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: buttonFadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+  opacity: 0;
+}
+
+@keyframes buttonFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.liquid-scroll::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(206, 173, 65, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.liquid-scroll:hover::before {
+  left: 100%;
+}
+
+.liquid-scroll:hover {
+  background: rgba(206, 173, 65, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(206, 173, 65, 0.3);
+}
+
+/* Section Transitions */
+.section-transition {
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.home-animate-in {
+  opacity: 1;
+}
+
+/* Features Section */
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 1200px) {
+  .features-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.scroll-card {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Text Reveal Animation */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Feature Action Button */
+.feature-action-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(206, 173, 65, 0.2), transparent);
+  transition: left 0.4s ease;
+}
+
+.feature-action-btn:hover::before {
+  left: 100%;
+}
+
+/* Scroll Animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .features-row {
+    padding: 0 20px;
+  }
+}
