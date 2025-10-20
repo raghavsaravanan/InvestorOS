@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/index.module.css';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -17,38 +18,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let isHoveringTop = false;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY <= 100) {
-        setIsNavVisible(true);
-      } else {
-        setIsNavVisible(isHoveringTop);
-      }
+    let lastY = window.scrollY;
+  
+    const onScroll = () => {
+      const y = window.scrollY;
+      // show near top or when scrolling up
+      setIsNavVisible(y < 80 || y < lastY);
+      lastY = y;
     };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const scrollY = window.scrollY;
-      if (e.clientY <= 80 && scrollY > 100) {
-        isHoveringTop = true;
-        setIsNavVisible(true);
-      } else if (scrollY > 100) {
-        isHoveringTop = false;
-        setIsNavVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('mousemove', handleMouseMove);
-
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+  
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -154,31 +136,17 @@ export default function Home() {
         overflow: 'hidden',
       }}
     >
+      <Navbar />
+      
       <nav
-        className={`${styles['sticky-nav']} ${isLoaded ? styles['nav-load-in'] : ''} ${
-          isNavVisible ? styles['nav-visible'] : styles['nav-hidden']
-        }`}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          background: 'rgba(38,30,30,0.95)',
-          backdropFilter: 'blur(15px)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: 80,
-          padding: '0 40px',
-          borderBottom: '1px solid rgba(206, 173, 65, 0.2)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-        }}
-      >
+  className={`${styles['sticky-nav']} ${isLoaded ? styles['nav-load-in'] : ''}`}
+  
+>
+
         <div className={`${styles['nav-left']} ${isLoaded ? styles['nav-left-load-in'] : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
           <button
             onClick={() => scrollToSection(featuresRef)}
-            className={`${styles['nav-button']}`}
+            className={`${styles['nav-but ton']}`}
             style={{
               background: 'none',
               border: 'none',
@@ -240,21 +208,7 @@ export default function Home() {
         <div className={`${styles['nav-right']} ${isLoaded ? styles['nav-right-load-in'] : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '32px' }}></div>
       </nav>
 
-      {!isNavVisible && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '80px',
-            zIndex: 999,
-            cursor: 'pointer',
-            background: 'transparent',
-          }}
-          onMouseEnter={() => setIsNavVisible(true)}
-        />
-      )}
+      
 
       <section
         className={`${styles['section-transition']} ${styles['home-animate-in']} ${isLoaded ? styles['hero-load-in'] : ''}`}

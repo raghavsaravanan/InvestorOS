@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Italiana, Aboreto } from 'next/font/google';
 import styles from '../src/styles/index.module.css';
+import Navbar from '../components/Navbar';
 
 const aboreto = Aboreto({ weight: '400', subsets: ['latin'], display: 'swap' });
 const italiana = Italiana({ weight: '400', subsets: ['latin'], display: 'swap' });
@@ -348,6 +349,7 @@ export default function Home() {
       MozUserSelect: 'none',
       msUserSelect: 'none'
     }}>
+      <Navbar showAuthButtons={false} />
       {/* Enhanced Sticky Navigation */}
       <nav 
         className={`${styles['sticky-nav']} ${isLoaded ? styles['nav-load-in'] : ''} ${isNavVisible ? styles['nav-visible'] : styles['nav-hidden']}`} 

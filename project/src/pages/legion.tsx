@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/legion.module.css';
+import Navbar from '../components/Navbar';
 
 // Optional: declare the fonts you plan to load via @fontsource in src/main.tsx
 const FONT_DISPLAY = "'Italiana', serif";
@@ -289,6 +290,7 @@ export default function Legion() {
 
   return (
     <div className={styles['legion-container']} style={{ fontFamily: FONT_BODY }}>
+      <Navbar />
       {/* Animated Background */}
       <div className={styles['animated-bg']} />
 
