@@ -1,3 +1,4 @@
+// components/onboarding/OnboardingFlow.tsx
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useOnboarding } from '../../contexts/OnboardingContext'
@@ -14,7 +15,7 @@ import OnboardingComplete from './OnboardingComplete'
 
 const OnboardingFlow: React.FC = () => {
   const navigate = useNavigate()
-  const { currentStep, nextStep, prevStep, totalSteps, completeOnboarding, isCompleted } = useOnboarding()
+  const { currentStep, nextStep, prevStep, completeOnboarding, isCompleted } = useOnboarding()
 
   const steps = [
     { component: TraderTypeQuestion, title: 'Trader Type' },
@@ -27,29 +28,28 @@ const OnboardingFlow: React.FC = () => {
     { component: AdvancedSettingsQuestion, title: 'Advanced Settings' },
     { component: ExplanationStyleQuestion, title: 'Explanation Style' }
   ]
+  const totalSteps = steps.length
 
-  const CurrentComponent = steps[currentStep].component
+  // guard against out-of-range
+  const safeStep = Math.min(Math.max(currentStep, 0), totalSteps - 1)
+  const CurrentComponent = steps[safeStep].component
 
   const handleNext = async () => {
-    if (currentStep === totalSteps - 1) {
+    if (safeStep === totalSteps - 1) {
       await completeOnboarding()
-      // Redirect to dashboard after completing onboarding
       navigate('/dashboard', { replace: true })
     } else {
       nextStep()
     }
   }
 
-  // Show completion screen if onboarding is completed
-  if (isCompleted) {
-    return <OnboardingComplete />
-  }
+  if (isCompleted) return <OnboardingComplete />
 
   const handlePrevious = () => {
-    if (currentStep > 0) {
-      prevStep()
-    }
+    if (safeStep > 0) prevStep()
   }
+
+  const pct = Math.round(((safeStep + 1) / totalSteps) * 100)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,17 +58,17 @@ const OnboardingFlow: React.FC = () => {
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-gray-600">
-              Step {currentStep + 1} of {totalSteps}
+              Step {safeStep + 1} of {totalSteps}
             </span>
             <span className="text-sm font-medium text-gray-600">
-              {Math.round(((currentStep + 1) / totalSteps) * 100)}% Complete
+              {pct}% Complete
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
+            <div
               className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
-            ></div>
+              style={{ width: `${pct}%` }}
+            />
           </div>
         </div>
       </div>
@@ -84,9 +84,9 @@ const OnboardingFlow: React.FC = () => {
           <div className="flex justify-between items-center">
             <button
               onClick={handlePrevious}
-              disabled={currentStep === 0}
+              disabled={safeStep === 0}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                currentStep === 0
+                safeStep === 0
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
@@ -99,7 +99,7 @@ const OnboardingFlow: React.FC = () => {
                 <div
                   key={index}
                   className={`w-2 h-2 rounded-full ${
-                    index <= currentStep ? 'bg-indigo-600' : 'bg-gray-300'
+                    index <= safeStep ? 'bg-indigo-600' : 'bg-gray-300'
                   }`}
                 />
               ))}
@@ -109,7 +109,7 @@ const OnboardingFlow: React.FC = () => {
               onClick={handleNext}
               className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
             >
-              {currentStep === totalSteps - 1 ? 'Complete Setup' : 'Next'}
+              {safeStep === totalSteps - 1 ? 'Complete Setup' : 'Next'}
             </button>
           </div>
         </div>
