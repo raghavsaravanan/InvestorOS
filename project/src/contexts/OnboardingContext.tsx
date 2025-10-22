@@ -78,39 +78,43 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
 
       try {
         const { data: profile, error } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single()
+  .from('user_profiles')
+  .select(`
+    trader_type,
+    risk_level,
+    risk_reward_ratio,
+    portfolio_style,
+    market_universe,
+    liquidity_preference,
+    max_concurrent_trades,
+    advanced_settings,
+    explanation_style
+  `)
+  .eq('id', user.id)
+  .single()
 
-        if (error && error.code !== 'PGRST116') { // PGRST116 = no rows found
-          console.error('Error loading profile:', error)
-          setLoading(false)
-          return
-        }
+if (error && error.code !== 'PGRST116') {
+  console.error('Error loading profile:', error)
+  setLoading(false)
+  return
+}
 
-        if (profile) {
-          // Convert database format to OnboardingData format
-          const profileData: OnboardingData = {
-            traderType: profile.trader_type,
-            riskLevel: profile.risk_level,
-            riskRewardRatio: profile.risk_reward_ratio,
-            portfolioStyles: profile.portfolio_styles || [],
-            marketUniverse: profile.market_universe || [],
-            customWatchlist: profile.custom_watchlist || [],
-            liquidityLevel: profile.liquidity_level,
-            maxTrades: profile.max_trades,
-            explanationStyle: profile.explanation_style,
-            advancedSettings: {
-              accountSize: profile.account_size,
-              preferredSectors: profile.preferred_sectors || [],
-              leverage: profile.leverage,
-              volatilityFilter: profile.volatility_filter
-            }
-          }
-          setData(profileData)
-          setIsCompleted(profile.onboarding_completed)
-        }
+if (profile) {
+  const profileData: OnboardingData = {
+    traderType: profile.trader_type,
+    riskLevel: profile.risk_level,
+    riskRewardRatio: profile.risk_reward_ratio,
+    portfolioStyles: profile.portfolio_style ? [profile.portfolio_style] : [],
+    marketUniverse: profile.market_universe ?? [],
+    liquidityLevel: profile.liquidity_preference,
+    maxTrades: profile.max_concurrent_trades,
+    explanationStyle: profile.explanation_style,
+    advancedSettings: profile.advanced_settings ?? undefined,
+  }
+  setData(profileData)
+  setIsCompleted(true)
+}
+
       } catch (error) {
         console.error('Error loading profile data:', error)
       } finally {
@@ -122,40 +126,38 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   }, [user])
 
   const completeOnboarding = async () => {
-    if (!user) return
-
-    try {
-      const { error } = await supabase
-        .from('user_profiles')
-        .upsert({
-          user_id: user.id,
-          trader_type: data.traderType,
-          risk_level: data.riskLevel,
-          risk_reward_ratio: data.riskRewardRatio,
-          portfolio_styles: data.portfolioStyles,
-          market_universe: data.marketUniverse,
-          custom_watchlist: data.customWatchlist || [],
-          liquidity_level: data.liquidityLevel,
-          max_trades: data.maxTrades,
-          explanation_style: data.explanationStyle,
-          account_size: data.advancedSettings?.accountSize,
-          preferred_sectors: data.advancedSettings?.preferredSectors || [],
-          leverage: data.advancedSettings?.leverage,
-          volatility_filter: data.advancedSettings?.volatilityFilter || false,
-          onboarding_completed: true,
-          updated_at: new Date().toISOString()
-        })
-
-      if (error) {
-        console.error('Error saving profile:', error)
-        return
-      }
-
-      setIsCompleted(true)
-    } catch (error) {
-      console.error('Error completing onboarding:', error)
-    }
+  const { data: { user }, error: userErr } = await supabase.auth.getUser()
+  if (userErr || !user) {
+    console.error('No authenticated user', userErr)
+    return
   }
+  console.log('Saving profile for user id:', user.id)
+
+  const payload = {
+    id: user.id, // must exist in auth.users
+    trader_type: data.traderType,
+    risk_level: data.riskLevel,
+    risk_reward_ratio: data.riskRewardRatio,
+    portfolio_style: data.portfolioStyles?.[0] ?? null,
+    market_universe: data.marketUniverse,
+    liquidity_preference: data.liquidityLevel,
+    max_concurrent_trades: data.maxTrades,
+    explanation_style: data.explanationStyle,
+    advanced_settings: data.advancedSettings ?? null,
+  }
+
+  const { error } = await supabase.from('user_profiles').upsert(payload, { onConflict: 'id' })
+  if (error) {
+    console.error('Error saving profile:', {
+      code: error.code, message: error.message, details: error.details, hint: error.hint
+    })
+    return
+  }
+
+  setIsCompleted(true)
+}
+
+
 
   const value = {
     data,
