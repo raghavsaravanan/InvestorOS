@@ -11,21 +11,21 @@ const MaxTradesQuestion: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          How many trades do you want to manage at once?
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif', letterSpacing: '0.05em' }}>
+          Portfolio Size
         </h2>
-        <p className="text-lg text-gray-600">
-          This helps us limit your exposure and prevent overtrading
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
+          Maximum concurrent trades
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8">
+      <div className="rounded-lg shadow-lg p-8" style={{ backgroundColor: '#2A2A2A' }}>
         <div className="text-center mb-8">
-          <div className="text-6xl font-bold text-indigo-600 mb-4">
+          <div className="text-7xl font-bold mb-4" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif' }}>
             {data.maxTrades}
           </div>
-          <p className="text-xl text-gray-600">concurrent trades</p>
+          <p className="text-xl" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Concurrent Trades</p>
         </div>
 
         <div className="mb-8">
@@ -35,12 +35,12 @@ const MaxTradesQuestion: React.FC = () => {
             max="10"
             value={data.maxTrades}
             onChange={(e) => handleSliderChange(parseInt(e.target.value))}
-            className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, #4f46e5 0%, #4f46e5 ${(data.maxTrades - 1) * 11.11}%, #e5e7eb ${(data.maxTrades - 1) * 11.11}%, #e5e7eb 100%)`
+              background: `linear-gradient(to right, #CEAD41 0%, #CEAD41 ${(data.maxTrades - 1) * 11.11}%, #3A3A3A ${(data.maxTrades - 1) * 11.11}%, #3A3A3A 100%)`
             }}
           />
-          <div className="flex justify-between text-sm text-gray-500 mt-2">
+          <div className="flex justify-between text-sm mt-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
             <span>1</span>
             <span>2</span>
             <span>3</span>
@@ -55,30 +55,27 @@ const MaxTradesQuestion: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-4 text-center">
-          <div className="p-4 bg-green-50 rounded-lg">
-            <div className="text-2xl mb-2">🛡️</div>
-            <h3 className="font-semibold text-green-800">Conservative</h3>
-            <p className="text-sm text-green-600">1-3 trades</p>
-            <p className="text-xs text-green-500 mt-1">Focus on quality over quantity</p>
+          <div className="p-6 rounded-lg border border-[#3A3A3A]">
+            <h3 className="font-bold mb-2" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif' }}>Conservative</h3>
+            <p className="text-sm mb-1" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>1-3 Trades</p>
+            <p className="text-xs" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif', opacity: 0.7 }}>Quality over quantity</p>
           </div>
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <div className="text-2xl mb-2">⚖️</div>
-            <h3 className="font-semibold text-blue-800">Balanced</h3>
-            <p className="text-sm text-blue-600">4-6 trades</p>
-            <p className="text-xs text-blue-500 mt-1">Good diversification</p>
+          <div className="p-6 rounded-lg border border-[#3A3A3A]">
+            <h3 className="font-bold mb-2" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif' }}>Balanced</h3>
+            <p className="text-sm mb-1" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>4-6 Trades</p>
+            <p className="text-xs" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif', opacity: 0.7 }}>Optimal diversification</p>
           </div>
-          <div className="p-4 bg-orange-50 rounded-lg">
-            <div className="text-2xl mb-2">🚀</div>
-            <h3 className="font-semibold text-orange-800">Active</h3>
-            <p className="text-sm text-orange-600">7-10 trades</p>
-            <p className="text-xs text-orange-500 mt-1">High activity trading</p>
+          <div className="p-6 rounded-lg border border-[#3A3A3A]">
+            <h3 className="font-bold mb-2" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif' }}>Active</h3>
+            <p className="text-sm mb-1" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>7-10 Trades</p>
+            <p className="text-xs" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif', opacity: 0.7 }}>Maximum activity</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">Why limit concurrent trades?</h4>
-        <div className="space-y-2 text-sm text-blue-800">
+      <div className="mt-8 p-4 rounded-lg" style={{ backgroundColor: '#2A2A2A' }}>
+        <h4 className="font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Why limit concurrent trades?</h4>
+        <div className="space-y-2 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <p>
             <HelpTooltip
               term="Position Sizing"

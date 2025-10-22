@@ -5,7 +5,7 @@ import HelpTooltip from '../HelpTooltip'
 const AdvancedSettingsQuestion: React.FC = () => {
   const { data, updateData } = useOnboarding()
   const [showAdvanced, setShowAdvanced] = useState(false)
-  const [accountSize, setAccountSize] = useState(data.advancedSettings?.accountSize || '')
+  const [accountSize, setAccountSize] = useState(data.advancedSettings?.accountSize ? String(data.advancedSettings.accountSize) : '')
   const [selectedSectors, setSelectedSectors] = useState<string[]>(data.advancedSettings?.preferredSectors || [])
   const [leverage, setLeverage] = useState(data.advancedSettings?.leverage || 1)
   const [volatilityFilter, setVolatilityFilter] = useState(data.advancedSettings?.volatilityFilter || false)
@@ -37,18 +37,19 @@ const AdvancedSettingsQuestion: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl font-bold mb-4" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
           Advanced Settings (Optional)
         </h2>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           Fine-tune your trading preferences for more personalized recommendations
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8">
+      <div className="rounded-lg shadow-lg p-8" style={{ backgroundColor: '#2A2A2A' }}>
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="w-full flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          className="w-full flex items-center justify-between p-4 rounded-lg transition-colors"
+          style={{ backgroundColor: '#333333', color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}
         >
           <span className="text-lg font-semibold">Show Advanced Settings</span>
           <svg 
@@ -65,7 +66,7 @@ const AdvancedSettingsQuestion: React.FC = () => {
           <div className="mt-6 space-y-6">
             {/* Account Size */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 Account Size ($)
               </label>
               <input
@@ -75,14 +76,14 @@ const AdvancedSettingsQuestion: React.FC = () => {
                 onChange={(e) => setAccountSize(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs mt-1" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 Helps calculate position sizes and risk management
               </p>
             </div>
 
             {/* Preferred Sectors */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 Preferred Sectors
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -104,11 +105,11 @@ const AdvancedSettingsQuestion: React.FC = () => {
 
             {/* Leverage */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 Leverage
               </label>
               <div className="flex space-x-4">
-                {[1, 2, 5].map((value) => (
+                {([1, 2, 5] as const).map((value) => (
                   <button
                     key={value}
                     onClick={() => setLeverage(value)}
@@ -120,9 +121,9 @@ const AdvancedSettingsQuestion: React.FC = () => {
                   >
                     {value}x
                   </button>
-                ))}
+                  ))}
               </div>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs mt-1" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 <HelpTooltip
                   term="Leverage"
                   explanation="Using borrowed money to increase your trading position size, amplifying both gains and losses."
@@ -143,11 +144,11 @@ const AdvancedSettingsQuestion: React.FC = () => {
                 onChange={(e) => setVolatilityFilter(e.target.checked)}
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="volatilityFilter" className="text-sm font-medium text-gray-700">
+              <label htmlFor="volatilityFilter" className="text-sm font-medium" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 Exclude stocks with high volatility (&gt;5% ATR)
               </label>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
               <HelpTooltip
                 term="ATR (Average True Range)"
                 explanation="A measure of market volatility that shows how much a stock typically moves in a day."
@@ -168,9 +169,9 @@ const AdvancedSettingsQuestion: React.FC = () => {
         )}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">Advanced settings explained:</h4>
-        <div className="space-y-2 text-sm text-blue-800">
+      <div className="mt-8 p-4 rounded-lg" style={{ backgroundColor: '#2A2A2A' }}>
+        <h4 className="font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Advanced settings explained:</h4>
+        <div className="space-y-2 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <p>
             <strong>Account Size:</strong> Helps us calculate appropriate position sizes 
             and risk management for your specific capital.

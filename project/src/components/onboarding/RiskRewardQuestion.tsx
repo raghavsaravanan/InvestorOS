@@ -12,63 +12,48 @@ const RiskRewardQuestion: React.FC = () => {
       title: 'Conservative',
       ratio: '1:2',
       description: 'Risk $1 to make $2',
-      color: 'green',
-      details: 'Lower risk, steady profits. Good for beginners.'
+      details: 'Lower risk, steady returns'
     },
     {
       id: '1:3' as RiskRewardRatio,
       title: 'Balanced',
       ratio: '1:3',
       description: 'Risk $1 to make $3',
-      color: 'blue',
-      details: 'Good balance of risk and reward. Most popular choice.'
+      details: 'Optimal risk-reward balance'
     },
     {
       id: '1:4' as RiskRewardRatio,
       title: 'Aggressive',
       ratio: '1:4',
       description: 'Risk $1 to make $4',
-      color: 'orange',
-      details: 'Higher reward potential, requires more skill.'
+      details: 'Higher reward potential'
     },
     {
       id: '1:5' as RiskRewardRatio,
-      title: 'Home-run setups only',
+      title: 'Maximum',
       ratio: '1:5',
       description: 'Risk $1 to make $5',
-      color: 'red',
-      details: 'Very selective, high reward potential.'
+      details: 'Selective, high-reward setups'
     }
   ]
 
-  const getColorClasses = (color: string, isSelected: boolean) => {
-    const baseClasses = 'border-2 rounded-lg p-6 cursor-pointer transition-all duration-200'
+  const getColorClasses = (isSelected: boolean) => {
+    const baseClasses = 'border-2 rounded-lg p-8 cursor-pointer transition-all duration-300'
     
     if (isSelected) {
-      switch (color) {
-        case 'green':
-          return `${baseClasses} border-green-500 bg-green-50`
-        case 'blue':
-          return `${baseClasses} border-blue-500 bg-blue-50`
-        case 'orange':
-          return `${baseClasses} border-orange-500 bg-orange-50`
-        case 'red':
-          return `${baseClasses} border-red-500 bg-red-50`
-        default:
-          return `${baseClasses} border-indigo-500 bg-indigo-50`
-      }
+      return `${baseClasses} border-[#CEAD41]`
     }
     
-    return `${baseClasses} border-gray-200 hover:border-gray-300`
+    return `${baseClasses} border-[#3A3A3A] hover:border-[#CEAD41]`
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl font-bold mb-4" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
           What's your preferred risk-to-reward ratio?
         </h2>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           This determines how much profit you aim for relative to your risk
         </p>
       </div>
@@ -91,22 +76,22 @@ const RiskRewardQuestion: React.FC = () => {
                  option.color === 'blue' ? '⚖️' : 
                  option.color === 'orange' ? '🎯' : '🚀'}
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+              <h3 className="text-lg font-semibold mb-1" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
                 {option.title}
               </h3>
-              <div className="text-xl font-bold text-gray-800 mb-2">
+              <div className="text-xl font-bold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
                 {option.ratio}
               </div>
-              <p className="text-sm text-gray-600 mb-2">{option.description}</p>
-              <p className="text-xs text-gray-500">{option.details}</p>
+              <p className="text-sm mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{option.description}</p>
+              <p className="text-xs" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{option.details}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">What is risk-to-reward ratio?</h4>
-        <div className="space-y-2 text-sm text-blue-800">
+      <div className="mt-8 p-4 rounded-lg" style={{ backgroundColor: '#2A2A2A' }}>
+        <h4 className="font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>What is risk-to-reward ratio?</h4>
+        <div className="space-y-2 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <p>
             <HelpTooltip
               term="Risk-to-Reward Ratio"

@@ -12,22 +12,19 @@ const MarketUniverseQuestion: React.FC = () => {
       id: 'nasdaq' as MarketUniverse,
       title: 'NASDAQ',
       description: 'Technology and growth stocks',
-      icon: '💻',
-      details: 'Apple, Microsoft, Google, Tesla, and other tech giants'
+      details: 'Leading technology companies and innovative sectors'
     },
     {
       id: 'sp500' as MarketUniverse,
       title: 'S&P 500',
       description: 'Large-cap US companies',
-      icon: '🏢',
       details: 'The 500 largest US companies across all sectors'
     },
     {
       id: 'russell2000' as MarketUniverse,
-      title: 'Russell 2000',
-      description: 'Small-cap companies',
-      icon: '🌱',
-      details: 'Smaller, more volatile companies with growth potential'
+      title: 'Dow Jones',
+      description: 'Industrial average blue chips',
+      details: '30 prominent companies representing market strength'
     }
   ]
 
@@ -52,12 +49,12 @@ const MarketUniverseQuestion: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Which markets do you want to trade?
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif', letterSpacing: '0.05em' }}>
+          Market Universe
         </h2>
-        <p className="text-lg text-gray-600">
-          Select the markets you want to focus on for your trading
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
+          Select your trading markets
         </p>
       </div>
 
@@ -67,20 +64,20 @@ const MarketUniverseQuestion: React.FC = () => {
           return (
             <div
               key={market.id}
-              className={`border-2 rounded-lg p-6 cursor-pointer transition-all duration-200 ${
-                isSelected
-                  ? 'border-indigo-500 bg-indigo-50'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
+            className={`border-2 rounded-lg p-8 cursor-pointer transition-all duration-300 ${
+              isSelected
+                ? 'border-[#CEAD41]'
+                : 'border-[#3A3A3A] hover:border-[#CEAD41]'
+            }`}
+            style={{ backgroundColor: isSelected ? 'rgba(206, 173, 65, 0.05)' : 'transparent' }}
               onClick={() => toggleMarket(market.id)}
             >
               <div className="text-center">
-                <div className="text-4xl mb-4">{market.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold mb-3" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif', letterSpacing: '0.05em' }}>
                   {market.title}
                 </h3>
-                <p className="text-gray-600 mb-3">{market.description}</p>
-                <p className="text-sm text-gray-500">{market.details}</p>
+                <p className="mb-3 text-base" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{market.description}</p>
+                <p className="text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif', opacity: 0.8 }}>{market.details}</p>
               </div>
             </div>
           )
@@ -89,10 +86,10 @@ const MarketUniverseQuestion: React.FC = () => {
 
       {/* Custom Watchlist */}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold mb-4" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
           Custom Watchlist (Optional)
         </h3>
-        <p className="text-gray-600 mb-4">
+        <p className="mb-4" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           Enter specific stock tickers you want to track, separated by commas
         </p>
         <div className="flex space-x-4">
@@ -112,7 +109,7 @@ const MarketUniverseQuestion: React.FC = () => {
         </div>
         {data.customWatchlist && data.customWatchlist.length > 0 && (
           <div className="mt-4">
-            <p className="text-sm text-gray-600 mb-2">Your custom watchlist:</p>
+            <p className="text-sm mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Your custom watchlist:</p>
             <div className="flex flex-wrap gap-2">
               {data.customWatchlist.map((ticker, index) => (
                 <span
@@ -127,9 +124,9 @@ const MarketUniverseQuestion: React.FC = () => {
         )}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">Understanding these markets:</h4>
-        <div className="space-y-2 text-sm text-blue-800">
+      <div className="mt-8 p-4 rounded-lg" style={{ backgroundColor: '#2A2A2A' }}>
+        <h4 className="font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Understanding these markets:</h4>
+        <div className="space-y-2 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <p>
             <HelpTooltip
               term="NASDAQ"

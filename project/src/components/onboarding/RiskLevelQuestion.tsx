@@ -9,57 +9,48 @@ const RiskLevelQuestion: React.FC = () => {
   const riskLevels = [
     {
       id: 'low' as RiskLevel,
-      title: 'Low Risk',
+      title: 'Conservative',
       percentage: '0.5% per trade',
-      description: 'Conservative approach, small position sizes',
+      description: 'Small position sizes, steady approach',
       color: 'green',
-      details: 'Perfect for beginners or those who prefer steady, predictable returns'
+      details: 'Ideal for capital preservation and steady growth'
     },
     {
       id: 'medium' as RiskLevel,
-      title: 'Medium Risk',
+      title: 'Balanced',
       percentage: '1% per trade',
-      description: 'Balanced approach, moderate position sizes',
+      description: 'Moderate position sizes, balanced strategy',
       color: 'yellow',
-      details: 'Good balance between growth potential and risk management'
+      details: 'Optimal balance of growth and risk management'
     },
     {
       id: 'high' as RiskLevel,
-      title: 'High Risk',
+      title: 'Aggressive',
       percentage: '1.5-2% per trade',
-      description: 'Aggressive approach, larger position sizes',
+      description: 'Larger position sizes, higher volatility',
       color: 'red',
-      details: 'For experienced traders comfortable with higher volatility'
+      details: 'Maximum growth potential with elevated risk'
     }
   ]
 
   const getColorClasses = (color: string, isSelected: boolean) => {
-    const baseClasses = 'border-2 rounded-lg p-6 cursor-pointer transition-all duration-200'
+    const baseClasses = 'border-2 rounded-lg p-8 cursor-pointer transition-all duration-300'
     
     if (isSelected) {
-      switch (color) {
-        case 'green':
-          return `${baseClasses} border-green-500 bg-green-50`
-        case 'yellow':
-          return `${baseClasses} border-yellow-500 bg-yellow-50`
-        case 'red':
-          return `${baseClasses} border-red-500 bg-red-50`
-        default:
-          return `${baseClasses} border-indigo-500 bg-indigo-50`
-      }
+      return `${baseClasses} border-[#CEAD41]`
     }
     
-    return `${baseClasses} border-gray-200 hover:border-gray-300`
+    return `${baseClasses} border-[#3A3A3A] hover:border-[#CEAD41]`
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          How much risk are you comfortable taking per trade?
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif', letterSpacing: '0.05em' }}>
+          Risk Tolerance
         </h2>
-        <p className="text-lg text-gray-600">
-          This determines your position sizing and helps protect your account
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
+          Define your risk per trade
         </p>
       </div>
 
@@ -68,32 +59,26 @@ const RiskLevelQuestion: React.FC = () => {
           <div
             key={level.id}
             className={getColorClasses(level.color, data.riskLevel === level.id)}
+            style={{ backgroundColor: data.riskLevel === level.id ? 'rgba(206, 173, 65, 0.05)' : 'transparent' }}
             onClick={() => updateData({ riskLevel: level.id })}
           >
             <div className="text-center">
-              <div className={`text-4xl mb-4 ${
-                level.color === 'green' ? 'text-green-600' :
-                level.color === 'yellow' ? 'text-yellow-600' :
-                'text-red-600'
-              }`}>
-                {level.color === 'green' ? '🛡️' : level.color === 'yellow' ? '⚖️' : '🚀'}
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-2xl font-bold mb-3" style={{ color: '#CEAD41', fontFamily: 'Italiana, serif', letterSpacing: '0.05em' }}>
                 {level.title}
               </h3>
-              <div className="text-2xl font-bold text-gray-800 mb-2">
+              <div className="text-3xl font-bold mb-4" style={{ color: '#CEAD41', fontFamily: 'Aboreto, serif' }}>
                 {level.percentage}
               </div>
-              <p className="text-gray-600 mb-3">{level.description}</p>
-              <p className="text-sm text-gray-500">{level.details}</p>
+              <p className="mb-3 text-base" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{level.description}</p>
+              <p className="text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif', opacity: 0.8 }}>{level.details}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">What does risk per trade mean?</h4>
-        <div className="space-y-2 text-sm text-blue-800">
+      <div className="mt-12 p-6 rounded-lg border border-[#3A3A3A]" style={{ backgroundColor: 'rgba(206, 173, 65, 0.03)' }}>
+        <h4 className="font-semibold mb-3 text-base" style={{ color: '#CEAD41', fontFamily: 'Aboreto, serif' }}>Risk Management Guide</h4>
+        <div className="space-y-3 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <p>
             <HelpTooltip
               term="Risk per trade"

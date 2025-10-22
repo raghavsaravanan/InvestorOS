@@ -49,10 +49,10 @@ const PortfolioStyleQuestion: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl font-bold mb-4" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
           How do you want your portfolio to look?
         </h2>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           Choose one or more styles that match your trading approach
         </p>
       </div>
@@ -73,11 +73,11 @@ const PortfolioStyleQuestion: React.FC = () => {
               <div className="flex items-start space-x-4">
                 <div className="text-4xl">{style.icon}</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Italiana, serif' }}>
                     {style.title}
                   </h3>
-                  <p className="text-gray-600 mb-3">{style.description}</p>
-                  <p className="text-sm text-gray-500">{style.details}</p>
+                  <p className="mb-3" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{style.description}</p>
+                  <p className="text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>{style.details}</p>
                 </div>
                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                   isSelected
@@ -96,9 +96,9 @@ const PortfolioStyleQuestion: React.FC = () => {
         })}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">Understanding these trading styles:</h4>
-        <div className="space-y-3 text-sm text-blue-800">
+      <div className="mt-8 p-4 rounded-lg" style={{ backgroundColor: '#2A2A2A' }}>
+        <h4 className="font-semibold mb-2" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>Understanding these trading styles:</h4>
+        <div className="space-y-3 text-sm" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
           <div>
             <HelpTooltip
               term="Momentum Trading"

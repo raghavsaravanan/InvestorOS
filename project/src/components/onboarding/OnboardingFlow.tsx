@@ -52,22 +52,22 @@ const OnboardingFlow: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#1E1E1E' }}>
       {/* Progress Bar */}
-      <div className="bg-white shadow-sm">
+      <div style={{ backgroundColor: '#1E1E1E', boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)' }}>
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
               Step {currentStep + 1} of {totalSteps}
             </span>
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium" style={{ color: '#C6C5C4', fontFamily: 'Aboreto, serif' }}>
               {Math.round(((currentStep + 1) / totalSteps) * 100)}% Complete
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full rounded-full h-2" style={{ backgroundColor: '#3A3A3A' }}>
             <div 
-              className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
+              className="h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentStep + 1) / totalSteps) * 100}%`, backgroundColor: '#CEAD41' }}
             ></div>
           </div>
         </div>
@@ -79,17 +79,22 @@ const OnboardingFlow: React.FC = () => {
       </div>
 
       {/* Navigation */}
-      <div className="bg-white border-t">
+      <div style={{ backgroundColor: '#1E1E1E', borderTop: '1px solid rgba(198, 197, 196, 0.2)' }}>
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <button
               onClick={handlePrevious}
               disabled={currentStep === 0}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
+              className={`px-8 py-3 rounded-md font-medium transition-colors ${
                 currentStep === 0
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'cursor-not-allowed'
+                  : 'border border-[#CEAD41]'
               }`}
+              style={{ 
+                color: currentStep === 0 ? '#5A5A5A' : '#CEAD41', 
+                fontFamily: 'Aboreto, serif',
+                backgroundColor: 'transparent'
+              }}
             >
               Previous
             </button>
@@ -98,16 +103,21 @@ const OnboardingFlow: React.FC = () => {
               {steps.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full ${
-                    index <= currentStep ? 'bg-indigo-600' : 'bg-gray-300'
-                  }`}
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: index <= currentStep ? '#CEAD41' : '#3A3A3A' }}
                 />
               ))}
             </div>
 
             <button
               onClick={handleNext}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+              className="px-8 py-3 rounded-md focus:outline-none transition-colors"
+              style={{ 
+                backgroundColor: '#CEAD41', 
+                color: '#1E1E1E', 
+                fontFamily: 'Aboreto, serif',
+                fontWeight: '600'
+              }}
             >
               {currentStep === totalSteps - 1 ? 'Complete Setup' : 'Next'}
             </button>
