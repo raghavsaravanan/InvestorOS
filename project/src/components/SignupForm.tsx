@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 interface SignupFormProps {
@@ -13,6 +14,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const { signUp } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,11 +39,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
     
     if (error) {
       setError(error.message)
+      setLoading(false)
     } else {
       setMessage('Check your email for the confirmation link!')
+      // After successful signup, redirect to onboarding questionnaire
+      navigate('/onboarding', { replace: true })
     }
-    
-    setLoading(false)
   }
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useOnboarding } from '../../contexts/OnboardingContext'
 import TraderTypeQuestion from './TraderTypeQuestion'
 import RiskLevelQuestion from './RiskLevelQuestion'
@@ -12,6 +13,7 @@ import ExplanationStyleQuestion from './ExplanationStyleQuestion'
 import OnboardingComplete from './OnboardingComplete'
 
 const OnboardingFlow: React.FC = () => {
+  const navigate = useNavigate()
   const { currentStep, nextStep, prevStep, totalSteps, completeOnboarding, isCompleted } = useOnboarding()
 
   const steps = [
@@ -28,9 +30,11 @@ const OnboardingFlow: React.FC = () => {
 
   const CurrentComponent = steps[currentStep].component
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === totalSteps - 1) {
-      completeOnboarding()
+      await completeOnboarding()
+      // Redirect to dashboard after completing onboarding
+      navigate('/dashboard', { replace: true })
     } else {
       nextStep()
     }

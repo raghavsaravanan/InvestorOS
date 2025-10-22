@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 interface LoginFormProps {
@@ -11,6 +12,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { signIn } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,9 +24,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
     
     if (error) {
       setError(error.message)
+      setLoading(false)
+    } else {
+      // Redirect to the intended page or dashboard
+      const from = location.state?.from || '/dashboard'
+      navigate(from, { replace: true })
     }
-    
-    setLoading(false)
   }
 
   return (

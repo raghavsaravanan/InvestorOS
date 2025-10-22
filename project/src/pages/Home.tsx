@@ -140,7 +140,19 @@ export default function Home() {
       
       <nav
   className={`${styles['sticky-nav']} ${isLoaded ? styles['nav-load-in'] : ''}`}
-  
+  style={{
+    position: 'fixed',
+    top: 0, left: 0, right: 0,
+    zIndex: 1000,
+    background: 'rgba(38,30,30,0.95)',
+    backdropFilter: 'blur(15px)',
+    height: 80,
+    padding: '0 40px',
+    borderBottom: '1px solid rgba(206, 173, 65, 0.2)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+    transition: 'transform 300ms ease',
+    transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
+  }}
 >
 
         <div className={`${styles['nav-left']} ${isLoaded ? styles['nav-left-load-in'] : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>

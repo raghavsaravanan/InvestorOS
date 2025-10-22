@@ -349,7 +349,7 @@ export default function Home() {
       MozUserSelect: 'none',
       msUserSelect: 'none'
     }}>
-      <Navbar showAuthButtons={false} />
+      <Navbar  />
       {/* Enhanced Sticky Navigation */}
       <nav 
         className={`${styles['sticky-nav']} ${isLoaded ? styles['nav-load-in'] : ''} ${isNavVisible ? styles['nav-visible'] : styles['nav-hidden']}`} 

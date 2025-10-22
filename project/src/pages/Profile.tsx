@@ -1,19 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useOnboarding, OnboardingProvider } from '../contexts/OnboardingContext'
 import { OnboardingData, TraderType, RiskLevel, RiskRewardRatio, PortfolioStyle, MarketUniverse, LiquidityLevel, ExplanationStyle } from '../types/onboarding'
+import { supabase } from '../lib/supabase'
 import Navbar from '../components/Navbar'
 
 const ProfileContent: React.FC = () => {
+  const { user } = useAuth()
   const { data, updateData } = useOnboarding()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState<OnboardingData>(data)
 
-  const handleSave = () => {
+  const saveProfileToSupabase = async (profileData: OnboardingData) => {
+    if (!user) return
+
+    try {
+      const { error } = await supabase
+        .from('user_profiles')
+        .upsert({
+          user_id: user.id,
+          trader_type: profileData.traderType,
+          risk_level: profileData.riskLevel,
+          risk_reward_ratio: profileData.riskRewardRatio,
+          portfolio_styles: profileData.portfolioStyles,
+          market_universe: profileData.marketUniverse,
+          custom_watchlist: profileData.customWatchlist || [],
+          liquidity_level: profileData.liquidityLevel,
+          max_trades: profileData.maxTrades,
+          explanation_style: profileData.explanationStyle,
+          account_size: profileData.advancedSettings?.accountSize,
+          preferred_sectors: profileData.advancedSettings?.preferredSectors || [],
+          leverage: profileData.advancedSettings?.leverage,
+          volatility_filter: profileData.advancedSettings?.volatilityFilter || false,
+          updated_at: new Date().toISOString()
+        })
+
+      if (error) {
+        console.error('Error saving profile:', error)
+      }
+    } catch (error) {
+      console.error('Error saving profile:', error)
+    }
+  }
+
+  const handleSave = async () => {
     updateData(editData)
     setIsEditing(false)
-    // Update localStorage
-    localStorage.setItem('onboarding-data', JSON.stringify(editData))
+    // Save to Supabase
+    await saveProfileToSupabase(editData)
   }
 
   const handleCancel = () => {
